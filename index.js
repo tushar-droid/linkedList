@@ -1,29 +1,29 @@
 class LinkedList {
-    head = new Node();
-    current_head = this.head;
+    head_node = new Node();
+    tail_node = this.head_node;
     size = 0;
 
     append(value){
         var new_val = new Node(value, null);
-        if(this.head.nextNode == null){
-            this.head.nextNode = new_val;
-            this.current_head = new_val;
+        if(this.size ===0){
+            this.head_node = new_val;
+            this.tail_node = new_val;
         }
         else{
-            this.current_head.nextNode = new_val;
-            this.current_head = new_val;
+            this.tail_node.nextNode = new_val;
+            this.tail_node = new_val;
         }
         this.size = this.size+1;
     };
     prepend(value){
-        var new_val = new Node(value, null);
-        new_val.nextNode = this.head.nextNode;
-        this.head.nextNode = new_val;
+        var new_val = new Node(value, null);        
+        new_val.nextNode = this.head_node;
+        this.head_node = new_val;
         this.size = this.size+1;
     }   
 
     toString(){
-        var nodes= this.head.nextNode;
+        var nodes= this.head_node;
         var st = ``;
         while(nodes!=null){
             st += `->(${nodes.value})`;
@@ -31,6 +31,10 @@ class LinkedList {
         }
         return st;
     }
+
+    head = () => this.head_node.value;
+    tail = () => this.tail_node.value;
+    
 }
 
 class Node{
@@ -45,7 +49,10 @@ var l = new LinkedList();
 l.append(10);
 l.append(15);
 l.append(17);
-l.append(19);
+l.prepend(8);
 l.append(23);
+l.prepend(-3);
 var val = l.toString();
 console.log(val);
+console.log('The head_node value: ', l.head());
+console.log('The Tail value: ', l.tail());
